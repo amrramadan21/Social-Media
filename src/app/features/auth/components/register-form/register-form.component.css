@@ -1,0 +1,232 @@
+/* ===== Auth Header ===== */
+.auth-header {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.auth-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: #1a202c;
+  margin: 0 0 6px 0;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: #5a7184;
+  margin: 0;
+}
+
+/* ===== Auth Form ===== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ===== Inline Input Group (Gender & Date) ===== */
+.input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 52px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 0 16px;
+  background: #ffffff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group:focus-within {
+  border-color: #00298d;
+  box-shadow: 0 0 0 3px rgba(0, 41, 141, 0.08);
+}
+
+.input-group--error {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.08);
+}
+
+.input-group--error:focus-within {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.12);
+}
+
+.input-group--valid {
+  border-color: #38a169;
+  box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.08);
+}
+
+.input-group--valid:focus-within {
+  border-color: #38a169;
+  box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.12);
+}
+
+.input-icon {
+  color: #94a3b8;
+  font-size: 16px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.input-group--error .input-icon {
+  color: #e53e3e;
+}
+
+.input-group--valid .input-icon {
+  color: #38a169;
+}
+
+.input-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 0;
+  font-size: 14px;
+  color: #1a202c;
+  background: transparent;
+  font-family: inherit;
+}
+
+.input-field::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+/* ===== Select Field ===== */
+.select-field {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  color: #a0aec0;
+}
+
+.select-field:has(option[value]:not([value=""]):checked) {
+  color: #1a202c;
+}
+
+/* ===== Date Field ===== */
+.date-field {
+  color: #a0aec0;
+}
+
+.date-field::-webkit-datetime-edit {
+  color: #a0aec0;
+}
+
+.date-field:valid:not([value=""]) {
+  color: #1a202c;
+}
+
+/* ===== Error Message ===== */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e53e3e;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: -6px;
+  padding-left: 4px;
+  animation: slideDown 0.2s ease-out;
+}
+
+/* ===== Alert Banners ===== */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.alert--success {
+  background: #f0fff4;
+  color: #276749;
+  border: 1px solid #c6f6d5;
+}
+
+.alert--success i {
+  color: #38a169;
+  font-size: 16px;
+}
+
+.alert--error {
+  background: #fff5f5;
+  color: #9b2c2c;
+  border: 1px solid #fed7d7;
+}
+
+.alert--error i {
+  color: #e53e3e;
+  font-size: 16px;
+}
+
+/* ===== Auth Button ===== */
+.auth-btn {
+  width: 100%;
+  padding: 14px;
+  background: #00298d;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.auth-btn:hover {
+  background: #001f6d;
+  box-shadow: 0 4px 14px rgba(0, 41, 141, 0.25);
+}
+
+.auth-btn:active {
+  transform: scale(0.98);
+}
+
+.auth-btn--loading {
+  opacity: 0.85;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ===== Spinner ===== */
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

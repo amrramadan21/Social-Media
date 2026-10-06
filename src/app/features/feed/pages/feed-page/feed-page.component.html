@@ -1,0 +1,67 @@
+<div class="feed-page">
+  <div class="feed-container">
+
+    <!-- Left Sidebar -->
+    <div class="feed-sidebar-left">
+      <app-sidebar></app-sidebar>
+    </div>
+
+    <!-- Main Feed Column -->
+    <div class="feed-main">
+      <!-- Create Post -->
+      <app-add-posts></app-add-posts>
+
+
+      <!-- Loading Skeleton (initial) -->
+      <div *ngIf="isInitialLoad && isLoading">
+        <app-loading-skeleton type="post"></app-loading-skeleton>
+        <app-loading-skeleton type="post"></app-loading-skeleton>
+        <app-loading-skeleton type="post"></app-loading-skeleton>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="hasError && !isLoading" class="feed-error">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        <p>Failed to load posts</p>
+        <button (click)="retryLoad()" class="retry-btn">Try Again</button>
+      </div>
+
+      <!-- Feed Posts -->
+      <div class="feed-posts">
+        <app-post-card
+          *ngFor="let post of allPosts"
+          [post]="post"
+          (postDeleted)="onPostDeleted($event)">
+        </app-post-card>
+
+        <!-- Loading More Spinner -->
+        <div *ngIf="isLoading && !isInitialLoad" class="feed-loading-more">
+          <i class="fa-solid fa-spinner fa-spin"></i>
+        </div>
+
+        <!-- End of Feed -->
+        <div *ngIf="!hasMorePosts && allPosts.length > 0" class="feed-end">
+          <div class="feed-end-line"></div>
+          <span>You're all caught up!</span>
+          <div class="feed-end-line"></div>
+        </div>
+
+        <!-- Empty State -->
+        <div *ngIf="!isLoading && !isInitialLoad && allPosts.length === 0 && !hasError" class="feed-empty">
+          <div class="empty-icon"><i class="fa-regular fa-newspaper"></i></div>
+          <h3>No posts yet</h3>
+          <p>Start following people or create your first post!</p>
+        </div>
+      </div>
+
+      <!-- Scroll trigger -->
+      <div class="scroll-trigger" *ngIf="hasMorePosts && !isLoading"></div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="feed-sidebar-right">
+      <app-feed-suggested-friends></app-feed-suggested-friends>
+    </div>
+
+  </div>
+</div>

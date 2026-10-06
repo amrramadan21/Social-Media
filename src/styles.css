@@ -1,0 +1,57 @@
+/* Global Styles */
+
+@import "tailwindcss";
+
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+
+@theme{
+    --color-main: #00298d;
+    --color-secondary: #f8fafc;
+}
+
+@utility container {
+    @apply mx-auto ;
+}
+
+/* ===== Base Resets ===== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f8fafc;
+  font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ===== Global Link Reset ===== */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: #bfdbfe;
+  color: #1e293b;
+}

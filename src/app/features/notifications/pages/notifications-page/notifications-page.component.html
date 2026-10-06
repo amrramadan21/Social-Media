@@ -1,0 +1,71 @@
+<div class="notifications-page">
+  <div class="notifications-container">
+    
+    <!-- Header -->
+    <div class="notif-header">
+      <div class="notif-title-row">
+        <h1 class="notif-title">Notifications</h1>
+        <span class="notif-badge" *ngIf="notifications.length">{{ notifications.length }}</span>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="notif-tabs">
+        <button class="notif-tab" [class.active]="activeTab === 'all'" (click)="setTab('all')">
+          All
+        </button>
+        <button class="notif-tab" [class.active]="activeTab === 'unread'" (click)="setTab('unread')">
+          Unread
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <app-loading-skeleton *ngIf="isLoading" type="notification"></app-loading-skeleton>
+
+    <!-- Error State -->
+    <div *ngIf="hasError && !isLoading" class="notif-error">
+      <i class="fa-solid fa-triangle-exclamation"></i>
+      <p>Failed to load notifications</p>
+      <button (click)="loadNotifications()" class="retry-btn">Retry</button>
+    </div>
+
+    <!-- Notification List -->
+    <div *ngIf="!isLoading && !hasError" class="notif-list">
+      <div *ngFor="let notif of filteredNotifications" 
+           class="notif-item" 
+           [class.unread]="!notif.read">
+        
+        <div class="notif-icon-wrapper" 
+             [style.background]="getNotificationBg(notif.type)"
+             [style.color]="getNotificationColor(notif.type)">
+          <i [class]="getNotificationIcon(notif.type)"></i>
+        </div>
+
+        <div class="notif-content">
+          <div class="notif-body">
+            <img [src]="notif?.sender?.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (notif?.sender?.username || 'user')" 
+                 class="notif-sender-avatar" alt="User">
+            <div>
+              <p class="notif-text">
+                <strong>{{ notif?.sender?.name || 'Someone' }}</strong>
+                {{ notif?.message || notif?.content || 'interacted with your post' }}
+              </p>
+              <span class="notif-time">{{ notif.createdAt | timeAgo }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="notif-dot" *ngIf="!notif.read"></div>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="filteredNotifications.length === 0" class="notif-empty">
+        <div class="empty-icon">
+          <i class="fa-regular fa-bell-slash"></i>
+        </div>
+        <h3>No notifications{{ activeTab === 'unread' ? ' unread' : '' }}</h3>
+        <p>{{ activeTab === 'unread' ? 'You\'re all caught up!' : 'When someone interacts with your posts, you\'ll see it here.' }}</p>
+      </div>
+    </div>
+  </div>
+</div>

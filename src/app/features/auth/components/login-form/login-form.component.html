@@ -1,0 +1,64 @@
+<!-- Login Form Header -->
+<div class="auth-header">
+  <h1 class="auth-title">Log in to Route Posts</h1>
+  <p class="auth-subtitle">Log in and continue your social journey.</p>
+</div>
+
+<!-- Success Message -->
+@if (successMessage) {
+  <div class="alert alert--success">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ successMessage }}</span>
+  </div>
+}
+
+<!-- Error Message -->
+@if (errorMessage) {
+  <div class="alert alert--error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>{{ errorMessage }}</span>
+  </div>
+}
+
+<!-- Login Form -->
+<form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="auth-form">
+  <!-- Email Field -->
+  <app-auth-input
+    [control]="$any(loginForm.controls.email)"
+    type="email"
+    placeholder="Email address"
+    icon="fa-regular fa-envelope"
+    inputId="login-email"
+  />
+
+  <!-- Password Field -->
+  <app-auth-input
+    [control]="$any(loginForm.controls.password)"
+    type="password"
+    placeholder="Password"
+    icon="fa-solid fa-lock"
+    inputId="login-password"
+    [showToggle]="true"
+  />
+
+  <!-- Login Button -->
+  <button
+    type="submit"
+    id="login-submit-btn"
+    class="auth-btn"
+    [class.auth-btn--loading]="isLoading"
+    [disabled]="isLoading"
+  >
+    @if (isLoading) {
+      <span class="spinner"></span>
+      <span>Logging In...</span>
+    } @else {
+      Log In
+    }
+  </button>
+
+  <!-- Forgot Password Link -->
+  <div class="auth-footer">
+    <a routerLink="/auth/forget-password" class="forgot-link">Forgot password?</a>
+  </div>
+</form>

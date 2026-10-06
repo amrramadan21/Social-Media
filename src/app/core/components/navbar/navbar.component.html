@@ -1,0 +1,60 @@
+<nav class="navbar">
+  <div class="navbar-inner">
+
+    <!-- Left: Logo & Brand -->
+    <div class="nav-brand">
+      <div class="brand-logo">
+        ROUTE
+      </div>
+      <span class="brand-name">Route Posts</span>
+    </div>
+
+    <!-- Center: Navigation Pills -->
+    <div class="nav-pills">
+      <a routerLink="/feed" routerLinkActive="active-nav-link" class="nav-link">
+        <i class="fa-solid fa-house"></i> Feed
+      </a>
+      <a routerLink="/profile" routerLinkActive="active-nav-link" class="nav-link">
+        <i class="fa-regular fa-user"></i> Profile
+      </a>
+      <a routerLink="/notifications" routerLinkActive="active-nav-link" class="nav-link nav-link-notif">
+        <i class="fa-regular fa-bell"></i> Notifications
+        <span class="notif-badge" *ngIf="unreadCount > 0">{{ unreadCount > 9 ? '9+' : unreadCount }}</span>
+      </a>
+    </div>
+
+    <!-- Right: User Avatar Pill & Dropdown -->
+    <div class="user-menu-wrapper">
+      <div class="user-pill" (click)="toggleMenu()">
+        <div class="user-avatar-wrapper">
+          <img *ngIf="userData?.photo; else fallbackAvatar" 
+               [src]="userData.photo" alt="avatar" class="user-avatar-img">
+          <ng-template #fallbackAvatar>
+            <img [src]="'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (userData?.username || 'user') + '&backgroundColor=b6e3f4'" 
+                 alt="avatar" class="user-avatar-img">
+          </ng-template>
+        </div>
+        <span class="user-name">{{ userData?.username || 'User' }}</span>
+        <i class="fa-solid fa-chevron-down chevron-icon" [class.rotated]="isMenuOpen"></i>
+      </div>
+
+      <!-- Dropdown Menu -->
+      <div class="dropdown-menu" *ngIf="isMenuOpen">
+        <a routerLink="/profile" (click)="isMenuOpen = false" class="dropdown-item">
+          <i class="fa-regular fa-user"></i> Profile
+        </a>
+        <a routerLink="/notifications" (click)="isMenuOpen = false" class="dropdown-item">
+          <i class="fa-regular fa-bell"></i> Notifications
+        </a>
+        <div class="dropdown-divider"></div>
+        <button (click)="logOut()" class="dropdown-item logout-item">
+          <i class="fa-solid fa-right-from-bracket"></i> Logout
+        </button>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- Spacer -->
+<div class="navbar-spacer"></div>

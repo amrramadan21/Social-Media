@@ -1,0 +1,144 @@
+<!-- Register Form Header -->
+<div class="auth-header">
+  <h1 class="auth-title">Create a new account</h1>
+  <p class="auth-subtitle">It is quick and easy.</p>
+</div>
+
+<!-- Success Message -->
+@if (successMessage) {
+  <div class="alert alert--success">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>{{ successMessage }}</span>
+  </div>
+}
+
+<!-- Error Message -->
+@if (errorMessage) {
+  <div class="alert alert--error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>{{ errorMessage }}</span>
+  </div>
+}
+
+<!-- Register Form -->
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()" class="auth-form">
+  <!-- Full Name -->
+  <app-auth-input
+    [control]="$any(registerForm.controls.name)"
+    type="text"
+    placeholder="Full name"
+    icon="fa-regular fa-user"
+    inputId="register-fullname"
+  />
+
+  <!-- Username -->
+  <app-auth-input
+    [control]="$any(registerForm.controls.username)"
+    type="text"
+    placeholder="Username"
+    icon="fa-solid fa-at"
+    inputId="register-username"
+  />
+
+  <!-- Email -->
+  <app-auth-input
+    [control]="$any(registerForm.controls.email)"
+    type="email"
+    placeholder="Email address"
+    icon="fa-regular fa-envelope"
+    inputId="register-email"
+  />
+
+  <!-- Gender Select -->
+  <div
+    class="input-group"
+    [class.input-group--error]="registerForm.controls.gender.touched && registerForm.controls.gender.invalid"
+    [class.input-group--valid]="registerForm.controls.gender.touched && registerForm.controls.gender.valid"
+  >
+    <span class="input-icon">
+      <i class="fa-solid fa-venus-mars"></i>
+    </span>
+    <select
+      id="register-gender"
+      formControlName="gender"
+      class="input-field select-field"
+    >
+      <option value="" disabled selected>Select gender</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+    </select>
+  </div>
+  @if (registerForm.controls.gender.touched && registerForm.controls.gender.errors?.['required']) {
+    <div class="error-message">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      Gender is required
+    </div>
+  }
+
+  <!-- Date of Birth -->
+  <div
+    class="input-group"
+    [class.input-group--error]="registerForm.controls.dateOfBirth.touched && registerForm.controls.dateOfBirth.invalid"
+    [class.input-group--valid]="registerForm.controls.dateOfBirth.touched && registerForm.controls.dateOfBirth.valid"
+  >
+    <span class="input-icon">
+      <i class="fa-regular fa-calendar"></i>
+    </span>
+    <input
+      type="date"
+      id="register-dob"
+      formControlName="dateOfBirth"
+      class="input-field date-field"
+    />
+  </div>
+  @if (registerForm.controls.dateOfBirth.touched && registerForm.controls.dateOfBirth.errors?.['required']) {
+    <div class="error-message">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      Date of birth is required
+    </div>
+  }
+
+  <!-- Password -->
+  <app-auth-input
+    [control]="$any(registerForm.controls.password)"
+    type="password"
+    placeholder="Password"
+    icon="fa-solid fa-lock"
+    inputId="register-password"
+    [showToggle]="true"
+  />
+
+  <!-- Confirm Password -->
+  <app-auth-input
+    [control]="$any(registerForm.controls.confirmPassword)"
+    type="password"
+    placeholder="Confirm password"
+    icon="fa-solid fa-lock"
+    inputId="register-confirm-password"
+    [showToggle]="true"
+  />
+
+  <!-- Password mismatch error -->
+  @if (registerForm.controls.confirmPassword.touched && passwordMismatch) {
+    <div class="error-message">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      Passwords do not match
+    </div>
+  }
+
+  <!-- Register Button -->
+  <button
+    type="submit"
+    id="register-submit-btn"
+    class="auth-btn"
+    [class.auth-btn--loading]="isLoading"
+    [disabled]="isLoading"
+  >
+    @if (isLoading) {
+      <span class="spinner"></span>
+      <span>Creating Account...</span>
+    } @else {
+      Create New Account
+    }
+  </button>
+</form>

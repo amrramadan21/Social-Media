@@ -1,0 +1,25 @@
+<!-- Auth Layout -->
+<section class="auth-section">
+  <div class="auth-card">
+    <!-- Tab Navigation -->
+    <div class="auth-tabs">
+      <a
+        class="auth-tab"
+        routerLink="/auth/login"
+        routerLinkActive="auth-tab--active"
+        >Login</a
+      >
+      <a
+        class="auth-tab"
+        routerLink="/auth/register"
+        routerLinkActive="auth-tab--active"
+        >Register</a
+      >
+    </div>
+
+    <!-- Page Content (Login or Register) -->
+    <div class="auth-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-3">
+  <ul class="space-y-1">
+    <li *ngFor="let link of navLinks">
+      <a 
+        [routerLink]="link.route" 
+        [queryParams]="link.queryParams"
+        routerLinkActive="bg-[#eef2fa] text-[#1a73e8] font-bold"
+        [routerLinkActiveOptions]="{exact: true}"
+        class="flex items-center space-x-3 px-4 py-[14px] rounded-lg text-gray-700 hover:bg-gray-100 transition cursor-pointer">
+        <i [class]="link.icon" class="text-[1.1rem] w-6 text-center" [class.text-blue-500]="link.label === 'Feed'"></i>
+        <span class="text-[15px]">{{ link.label }}</span>
+      </a>
+    </li>
+  </ul>
+</div>

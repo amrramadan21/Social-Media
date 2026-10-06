@@ -1,0 +1,56 @@
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 sticky top-20">
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center space-x-2 text-gray-900 font-bold text-[16px]">
+      <i class="fa-solid fa-user-group text-blue-600"></i>
+      <h3>Suggested Friends</h3>
+    </div>
+    <span class="bg-gray-100 text-gray-600 text-xs font-bold px-2 py-1 rounded-full">{{ suggestedUsers.length || 0 }}</span>
+  </div>
+
+  <!-- Search Dummy -->
+  <div class="relative mb-4">
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+      <i class="fa-solid fa-search text-gray-400"></i>
+    </div>
+    <input type="text" class="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500" placeholder="Search friends...">
+  </div>
+
+  <div class="space-y-3">
+    <!-- Loader -->
+    <div *ngIf="isLoading" class="text-center py-4">
+      <i class="fa-solid fa-spinner fa-spin text-blue-600"></i>
+    </div>
+
+    <!-- User Items -->
+    <div *ngFor="let user of suggestedUsers" class="flex flex-col border border-gray-100 rounded-lg p-3 hover:bg-gray-50 transition">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3 truncate">
+          <img [src]="user.photo || 'https://i.pravatar.cc/150?u=' + user._id" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-gray-200 shrink-0">
+          <div class="truncate">
+            <h4 class="font-bold text-[14px] text-gray-900 truncate leading-tight">{{ user.name }}</h4>
+            <p class="text-[12px] text-gray-500 truncate">@{{ user.username || user.name.toLowerCase().replace(' ', '') }}</p>
+          </div>
+        </div>
+        
+        <button 
+          (click)="followUser(user)"
+          class="shrink-0 ml-2 bg-blue-50 text-blue-600 hover:bg-blue-100 font-medium px-3 py-1.5 rounded-lg text-sm transition flex items-center space-x-1">
+          <ng-container *ngIf="!user.isLoadingFollow">
+            <i class="fa-solid" [ngClass]="user.isFollowed ? 'fa-check' : 'fa-user-plus'"></i>
+            <span>{{ user.isFollowed ? 'Following' : 'Follow' }}</span>
+          </ng-container>
+          <ng-container *ngIf="user.isLoadingFollow">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+          </ng-container>
+        </button>
+      </div>
+      <div class="mt-2">
+         <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded-full truncate max-w-full inline-block">{{ user.followersCount || 0 }} followers</span>
+      </div>
+    </div>
+  </div>
+
+  <button *ngIf="suggestedUsers.length > 0" (click)="viewAll()" class="w-full mt-4 bg-gray-50 hover:bg-gray-100 text-gray-700 font-medium py-2 rounded-lg text-sm border border-gray-200 transition">
+    View more
+  </button>
+</div>

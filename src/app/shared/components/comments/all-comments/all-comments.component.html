@@ -1,0 +1,59 @@
+<div class="comments-list">
+  
+  <!-- Loading Spinner (initial) -->
+  <div *ngIf="isLoading && comments.length === 0" class="comments-loading">
+    <i class="fa-solid fa-spinner fa-spin"></i>
+  </div>
+
+  <!-- Comment Items -->
+  <div *ngFor="let comment of comments" class="comment-item">
+    <div class="comment-row">
+      <img [src]="comment?.commentCreator?.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (comment?.commentCreator?.username || 'user')" 
+           alt="Avatar" class="comment-user-avatar">
+      
+      <div class="comment-content">
+        <div class="comment-bubble">
+          <h5 class="comment-author">{{ comment?.commentCreator?.name || 'User' }}</h5>
+          <p class="comment-text">{{ comment?.content }}</p>
+          <img *ngIf="comment?.image" [src]="comment.image" class="comment-image" alt="Comment image">
+        </div>
+        
+        <!-- Comment Actions -->
+        <div class="comment-actions">
+          <button class="comment-action" [class.active]="comment.isLiked" (click)="likeComment(comment)">
+            {{ comment.isLiked ? 'Liked' : 'Like' }}
+            <span *ngIf="comment.likesCount" class="like-count">{{ comment.likesCount }}</span>
+          </button>
+          <button class="comment-action" (click)="toggleReply(comment._id)">Reply</button>
+          <button *ngIf="isCommentOwner(comment)" class="comment-action danger" (click)="deleteComment(comment)">Delete</button>
+          <span class="comment-time">{{ comment.createdAt | timeAgo }}</span>
+        </div>
+
+        <!-- Reply Input (inline) -->
+        <div *ngIf="replyingTo === comment._id" class="reply-section">
+          <app-add-comment 
+            [postId]="postId" 
+            [replyToCommentId]="comment._id"
+            placeholder="Write a reply..."
+            (commentPosted)="replyingTo = null">
+          </app-add-comment>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load More -->
+  <button *ngIf="hasMore && !isLoading && comments.length > 0" class="load-more-btn" (click)="loadComments()">
+    View more comments
+  </button>
+  
+  <!-- Loading More Spinner -->
+  <div *ngIf="isLoading && comments.length > 0" class="comments-loading-more">
+    <i class="fa-solid fa-spinner fa-spin"></i> Loading...
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && comments.length === 0" class="no-comments">
+    No comments yet. Be the first!
+  </div>
+</div>

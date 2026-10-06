@@ -1,0 +1,102 @@
+<div class="profile-page">
+  <div *ngIf="isLoading" class="profile-loading">
+    <i class="fa-solid fa-spinner fa-spin text-3xl text-blue-600"></i>
+  </div>
+
+  <div *ngIf="!isLoading && user">
+    <div class="profile-cover">
+      <button *ngIf="isOwnProfile" class="cover-btn">
+        <i class="fa-solid fa-camera"></i> <span>Add cover</span>
+      </button>
+    </div>
+
+    <div class="profile-card-wrapper">
+      <div class="profile-card">
+        <div class="profile-top-row">
+          <div class="profile-identity">
+            <div class="avatar-container">
+              <img [src]="user?.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (user?.username || 'user')" class="profile-avatar" alt="Avatar">
+              <label *ngIf="isOwnProfile" class="avatar-upload-overlay">
+                <i *ngIf="!isUploadingPhoto" class="fa-solid fa-camera"></i>
+                <i *ngIf="isUploadingPhoto" class="fa-solid fa-spinner fa-spin"></i>
+                <input type="file" accept="image/*" class="hidden" (change)="onPhotoSelected($event)">
+              </label>
+            </div>
+            <div class="profile-info">
+              <h1 class="profile-name">{{ user?.name || 'User' }}</h1>
+              <p class="profile-username">{{ user?.username ? '@' + user.username : '' }}</p>
+              <div class="profile-badge"><i class="fa-solid fa-user-group"></i> <span>Route Posts member</span></div>
+            </div>
+          </div>
+          <div class="profile-right">
+            <button *ngIf="!isOwnProfile" class="follow-profile-btn" [class.following]="user?.isFollowing" (click)="followUser()">
+              <i [class]="user?.isFollowing ? 'fa-solid fa-check' : 'fa-solid fa-user-plus'"></i>
+              {{ user?.isFollowing ? 'Following' : 'Follow' }}
+            </button>
+            <button *ngIf="isOwnProfile" class="settings-btn" (click)="openPasswordModal()">
+              <i class="fa-solid fa-key"></i> Change Password
+            </button>
+            <div class="stats-boxes">
+              <div class="stat-box"><span class="stat-label">FOLLOWERS</span><span class="stat-value">{{ user?.followersCount || 0 }}</span></div>
+              <div class="stat-box"><span class="stat-label">FOLLOWING</span><span class="stat-value">{{ user?.followingCount || 0 }}</span></div>
+              <div class="stat-box"><span class="stat-label">POSTS</span><span class="stat-value">{{ userPosts.length || 0 }}</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-tabs">
+        <div class="tabs-left">
+          <button class="tab-btn" [class.active]="activeTab === 'posts'" (click)="setTab('posts')"><i class="fa-regular fa-file-lines"></i> <span>Posts</span></button>
+          <button *ngIf="isOwnProfile" class="tab-btn" [class.active]="activeTab === 'saved'" (click)="setTab('saved')"><i class="fa-regular fa-bookmark"></i> <span>Saved</span></button>
+        </div>
+      </div>
+
+      <div class="profile-content">
+        <div *ngIf="isPostsLoading" class="posts-loading"><i class="fa-solid fa-spinner fa-spin"></i></div>
+        <div *ngIf="!isPostsLoading && activeTab === 'posts'">
+          <div *ngIf="userPosts.length === 0" class="empty-state">
+            <div class="empty-icon"><i class="fa-regular fa-file-lines"></i></div>
+            <h3>No posts yet</h3>
+          </div>
+          <app-post-card *ngFor="let post of userPosts" [post]="post" (postDeleted)="onPostDeleted($event)"></app-post-card>
+        </div>
+        <div *ngIf="!isPostsLoading && activeTab === 'saved'">
+          <div *ngIf="isSavedLoading" class="posts-loading"><i class="fa-solid fa-spinner fa-spin"></i></div>
+          <div *ngIf="!isSavedLoading && savedPosts.length === 0" class="empty-state">
+            <div class="empty-icon"><i class="fa-regular fa-bookmark"></i></div>
+            <h3>No saved items</h3>
+            <p>Posts you save will appear here.</p>
+          </div>
+          <div *ngIf="!isSavedLoading && savedPosts.length > 0">
+            <app-post-card *ngFor="let post of savedPosts" [post]="post" (postDeleted)="onPostDeleted($event)"></app-post-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Change Password Modal -->
+<div class="modal-overlay" *ngIf="showPasswordModal" (click)="showPasswordModal = false">
+  <div class="modal-card" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3><i class="fa-solid fa-key"></i> Change Password</h3>
+      <button class="modal-close" (click)="showPasswordModal = false"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><label>Current Password</label><input type="password" [(ngModel)]="passwordForm.password" placeholder="Enter current password" class="form-input"></div>
+      <div class="form-group"><label>New Password</label><input type="password" [(ngModel)]="passwordForm.newPassword" placeholder="Enter new password" class="form-input"></div>
+      <div class="form-group"><label>Confirm New Password</label><input type="password" [(ngModel)]="passwordForm.confirmPassword" placeholder="Confirm new password" class="form-input"></div>
+      <div *ngIf="passwordError" class="form-error"><i class="fa-solid fa-circle-exclamation"></i> {{ passwordError }}</div>
+      <div *ngIf="passwordSuccess" class="form-success"><i class="fa-solid fa-circle-check"></i> {{ passwordSuccess }}</div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="showPasswordModal = false">Cancel</button>
+      <button class="btn-submit" (click)="submitPasswordChange()" [disabled]="isPasswordLoading">
+        <i *ngIf="isPasswordLoading" class="fa-solid fa-spinner fa-spin"></i>
+        {{ isPasswordLoading ? 'Changing...' : 'Change Password' }}
+      </button>
+    </div>
+  </div>
+</div>

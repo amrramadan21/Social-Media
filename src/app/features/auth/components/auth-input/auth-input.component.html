@@ -1,0 +1,45 @@
+<div
+  class="input-group"
+  [class.input-group--error]="isInvalid"
+  [class.input-group--valid]="isValid"
+>
+  <!-- Left Icon -->
+  @if (icon()) {
+    <span class="input-icon">
+      <i [class]="icon()"></i>
+    </span>
+  }
+
+  <!-- Input Field -->
+  <input
+    [type]="effectiveType"
+    [id]="inputId()"
+    [formControl]="control()"
+    [placeholder]="placeholder()"
+    class="input-field"
+  />
+
+  <!-- Password Toggle -->
+  @if (showToggle()) {
+    <button
+      type="button"
+      class="toggle-password"
+      (click)="togglePassword()"
+      tabindex="-1"
+    >
+      <i
+        class="fa-solid"
+        [class.fa-eye]="!passwordVisible()"
+        [class.fa-eye-slash]="passwordVisible()"
+      ></i>
+    </button>
+  }
+</div>
+
+<!-- Error Message -->
+@if (isInvalid) {
+  <div class="error-message">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    {{ errorMessage }}
+  </div>
+}

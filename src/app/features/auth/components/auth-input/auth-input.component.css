@@ -1,0 +1,129 @@
+/* ===== Host Component ===== */
+:host {
+  display: block;
+  width: 100% !important;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* ===== Input Group ===== */
+.input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 52px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 0 16px;
+  background: #ffffff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group:focus-within {
+  border-color: #00298d;
+  box-shadow: 0 0 0 3px rgba(0, 41, 141, 0.08);
+}
+
+/* ===== Error State ===== */
+.input-group--error {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.08);
+}
+
+.input-group--error:focus-within {
+  border-color: #e53e3e;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.12);
+}
+
+/* ===== Valid State ===== */
+.input-group--valid {
+  border-color: #38a169;
+  box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.08);
+}
+
+.input-group--valid:focus-within {
+  border-color: #38a169;
+  box-shadow: 0 0 0 3px rgba(56, 161, 105, 0.12);
+}
+
+/* ===== Input Icon ===== */
+.input-icon {
+  color: #94a3b8;
+  font-size: 16px;
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+}
+
+.input-group--error .input-icon {
+  color: #e53e3e;
+}
+
+.input-group--valid .input-icon {
+  color: #38a169;
+}
+
+/* ===== Input Field ===== */
+.input-field {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 14px 0;
+  font-size: 14px;
+  color: #1a202c;
+  background: transparent;
+  font-family: inherit;
+}
+
+.input-field::placeholder {
+  color: #a0aec0;
+  font-weight: 400;
+}
+
+/* ===== Password Toggle ===== */
+.toggle-password {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 16px;
+  padding: 4px 0 4px 8px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+  color: #00298d;
+}
+
+/* ===== Error Message ===== */
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #e53e3e;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 6px;
+  padding-left: 4px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

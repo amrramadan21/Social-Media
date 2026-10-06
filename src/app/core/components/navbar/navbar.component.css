@@ -1,0 +1,231 @@
+/* ===== Navbar ===== */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.navbar-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-spacer {
+  height: 64px;
+}
+
+/* Brand */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #00298d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 8px;
+  color: #fff;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+.brand-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+/* Nav Pills */
+.nav-pills {
+  display: none;
+  align-items: center;
+  background: #f8fafc;
+  padding: 4px;
+  border-radius: 14px;
+  border: 1px solid #f1f5f9;
+}
+@media (min-width: 768px) {
+  .nav-pills {
+    display: flex;
+  }
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  user-select: none;
+  position: relative;
+}
+.nav-link:hover {
+  color: #1e293b;
+}
+.nav-link i {
+  font-size: 15px;
+}
+
+/* Active pill */
+.active-nav-link {
+  background: #ffffff;
+  color: #00298d !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+.active-nav-link i {
+  color: #00298d;
+}
+
+/* Notification badge on nav pill */
+.nav-link-notif {
+  position: relative;
+}
+.notif-badge {
+  position: absolute;
+  top: 2px;
+  right: 8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  animation: badgePop 0.3s ease;
+}
+
+/* User Menu */
+.user-menu-wrapper {
+  position: relative;
+}
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  padding: 5px 14px 5px 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.user-pill:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+.user-avatar-wrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+.user-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.chevron-icon {
+  font-size: 10px;
+  color: #94a3b8;
+  transition: transform 0.2s;
+}
+.chevron-icon.rotated {
+  transform: rotate(180deg);
+}
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  width: 220px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  z-index: 200;
+  animation: slideDown 0.15s ease;
+}
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+.dropdown-item:hover {
+  background: #f8fafc;
+  color: #00298d;
+}
+.dropdown-item i {
+  font-size: 15px;
+  width: 18px;
+  text-align: center;
+}
+.dropdown-divider {
+  height: 1px;
+  background: #f1f5f9;
+  margin: 4px 12px;
+}
+.logout-item {
+  color: #ef4444;
+  font-weight: 600;
+}
+.logout-item:hover {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes badgePop {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}

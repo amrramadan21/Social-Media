@@ -1,0 +1,149 @@
+/* ===== Create Post Card ===== */
+.create-post-card {
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+}
+.create-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.create-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #f1f5f9;
+}
+.create-user-name {
+  font-weight: 700;
+  font-size: 15px;
+  color: #1e293b;
+}
+.create-privacy {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #94a3b8;
+  background: #f8fafc;
+  padding: 2px 10px;
+  border-radius: 6px;
+  margin-top: 2px;
+  width: max-content;
+  cursor: pointer;
+}
+.create-input-area {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.create-textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-size: 15px;
+  color: #334155;
+  min-height: 60px;
+  font-family: inherit;
+  line-height: 1.5;
+}
+.create-textarea::placeholder {
+  color: #94a3b8;
+}
+.create-image-preview {
+  position: relative;
+  margin-top: 10px;
+}
+.create-image-preview img {
+  width: 100%;
+  max-height: 240px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+.remove-image-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.create-error {
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.create-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.create-action-btns {
+  display: flex;
+  gap: 4px;
+}
+.create-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: background 0.2s;
+  background: none;
+  border: none;
+}
+.create-action-btn:hover {
+  background: #f8fafc;
+}
+.create-action-btn input {
+  display: none;
+}
+.text-green { color: #22c55e; }
+.text-yellow { color: #f59e0b; }
+.create-submit-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.create-submit-btn:hover {
+  background: #1d4ed8;
+}
+.create-submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.hidden {
+  display: none;
+}

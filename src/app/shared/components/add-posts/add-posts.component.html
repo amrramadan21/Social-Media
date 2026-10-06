@@ -1,0 +1,54 @@
+<div class="create-post-card">
+  <!-- Header -->
+  <div class="create-header">
+    <img [src]="userData?.photo || 'https://api.dicebear.com/7.x/avataaars/svg?seed=' + (userData?.username || 'user')" 
+         class="create-avatar" alt="Avatar">
+    <div>
+      <h4 class="create-user-name">{{ userData?.name || 'User' }}</h4>
+      <div class="create-privacy">
+        <i class="fa-solid fa-earth-americas"></i> Public <i class="fa-solid fa-caret-down"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input -->
+  <div class="create-input-area">
+    <textarea [(ngModel)]="postContent"
+      placeholder="What's on your mind?"
+      class="create-textarea"></textarea>
+
+    <!-- Image Preview -->
+    <div class="create-image-preview" *ngIf="imagePreviewUrl">
+      <img [src]="imagePreviewUrl" alt="Preview">
+      <button class="remove-image-btn" (click)="removeImage()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="errorMessage" class="create-error">
+    <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
+  </div>
+
+  <!-- Actions -->
+  <div class="create-actions">
+    <div class="create-action-btns">
+      <label class="create-action-btn">
+        <i class="fa-regular fa-image text-green"></i>
+        <span>Photo</span>
+        <input type="file" accept="image/*" class="hidden" (change)="onImageChange($event)">
+      </label>
+      <button class="create-action-btn">
+        <i class="fa-regular fa-face-smile text-yellow"></i>
+        <span>Feeling</span>
+      </button>
+    </div>
+
+    <button class="create-submit-btn" (click)="submitPost()" [disabled]="isLoading || (!postContent && !imagePreviewUrl)">
+      <i *ngIf="isLoading" class="fa-solid fa-spinner fa-spin"></i>
+      {{ isLoading ? 'Posting...' : 'Post' }}
+      <i *ngIf="!isLoading" class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
